@@ -181,6 +181,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 							self.showTooltip();
 						}
 					});
+					
+					// this is a hack for Apple touch devices, where the first tap on a non-anchor element does not emulate a click event, but rather a hover event.
+					// This is not really a bug, because it helps with sites that have hover-menus that haven't been tablet/mobile optimised. Adding an empty onclick attribute tells the browser that the element is indeed a clickable area.
+					if (deviceHasTouchCapability && self.options.touchDevices) {
+						if(!self.$elProxy.attr('onclick')) self.$elProxy.attr('onclick', '');
+					}
 				}
 			}
 		},
